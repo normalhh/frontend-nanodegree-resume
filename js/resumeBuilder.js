@@ -206,8 +206,8 @@ education.display = function () {
         var formattedSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[onlineSchool].school);
         var formattedTitleSchool = formattedTitle + formattedSchool;
         $(".education-entry:last").append(formattedTitleSchool);
-        var formattedDates = HTMLonlineDates.replace("%data%", education.onlineCourses[onlineSchool].dates);
-        $(".education-entry:last").append(formattedDates);
+        var formattedOnlineDates = HTMLonlineDates.replace("%data%", education.onlineCourses[onlineSchool].dates);
+        $(".education-entry:last").append(formattedOnlineDates);
         var formattedUrl = HTMLonlineURL.replace("%data%", education.onlineCourses[onlineSchool].url);
         $(".education-entry:last").append(formattedUrl);
     }
