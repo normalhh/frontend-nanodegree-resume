@@ -81,18 +81,18 @@ var education = {
     "schools": [
         {
             "name": "Nankai University Binhai College",
-            "city": "Tianjin, China",
+            "location": "Tianjin, China",
             "majors": ["Insurance"],
             "degree": "Bachelor Degree",
-            "dates": 2006,
+            "dates": "2006-2010",
             "url": ""
         },
         {
             "name": "APTECH Zhengzhou Campus",
-            "city": "Zhengzhou, China",
+            "location": "Zhengzhou, China",
             "majors": ["Android Development"],
-            "degree": "",
-            "dates": 2013,
+            "degree": "Android Developer",
+            "dates": "2013-2014",
             "url": ""
         }
     ],
@@ -100,7 +100,7 @@ var education = {
         {
             "title": "Front-End Web Development",
             "school": "Udacity",
-            "dates": 2017,
+            "dates": "2017-2017",
             "url": "https://cn.udacity.com/course/front-end-web-developer-nanodegree--nd001-cn-basic"
         }
     ]
@@ -182,3 +182,41 @@ projects.display = function () {
     }
 };
 projects.display();
+
+education.display = function () {
+    for (var school in education.schools) {
+        $("#education").append(HTMLschoolStart);
+
+        var formattedName = HTMLschoolName.replace("%data%", education.schools[school].name);
+        var formattedDegree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
+        var formattedSchoolNameDegree = formattedName + formattedDegree;
+        $(".education-entry:last").append(formattedSchoolNameDegree);
+        var formattedLocation = HTMLschoolLocation.replace("%data%", education.schools[school].location);
+        $(".education-entry:last").append(formattedLocation);
+        var formattedDates = HTMLschoolDates.replace("%data%", education.schools[school].dates);
+        $(".education-entry:last").append(formattedDates);
+        var formattedMajor = HTMLschoolMajor.replace("%data%",education.schools[school].majors[0]);
+        $(".education-entry:last").append(formattedMajor);
+    }
+
+    for (var onlineSchool in education.onlineCourses) {
+        $(".education-entry:last").append(HTMLonlineClasses);
+
+        var formattedTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[onlineSchool].title);
+        var formattedSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[onlineSchool].school);
+        var formattedTitleSchool = formattedTitle + formattedSchool;
+        $(".education-entry:last").append(formattedTitleSchool);
+        var formattedDates = HTMLonlineDates.replace("%data%", education.onlineCourses[onlineSchool].dates);
+        $(".education-entry:last").append(formattedDates);
+        var formattedUrl = HTMLonlineURL.replace("%data%", education.onlineCourses[onlineSchool].url);
+        $(".education-entry:last").append(formattedUrl);
+    }
+};
+education.display();
+
+$("#footerContacts").append(formattedMobile);
+$("#footerContacts").append(formattedEmail);
+$("#footerContacts").append(formattedTwitter);
+$("#footerContacts").append(formattedGithub);
+$("#footerContacts").append(formattedBlog);
+$("#footerContacts").append(formattedLocation);
