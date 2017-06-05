@@ -39,37 +39,37 @@ var work = {
 var projects = {
     "projects": [
         {
-            "title": "",
-            "dates": "",
-            "description": "",
+            "title": "TPEOA",
+            "dates": "2013.10 - 2014.04",
+            "description": "This is an mobile OA system(app) witch is required by a customer.",
             "images": [],
             "content": ""
         },
         {
-            "title": "",
-            "dates": "",
-            "description": "",
+            "title": "Mobile Survey System",
+            "dates": "2014.05 - 2016.02",
+            "description": "This is a custom mobile app for an Insurance company. There are over 2000 insurance surveyors of them. With this app they can survey car accidents easily.",
             "images": [],
             "content": ""
         },
         {
-            "title": "",
-            "dates": "",
-            "description": "",
+            "title": "Mobile Survey System 2.0",
+            "dates": "2016.02 - 2017.02",
+            "description": "This is an app which is upgrade version of Mobile Survey System. Because there core business has some big adjustment, so some other systems rely on it has to update.",
             "images": [],
             "content": ""
         },
         {
-            "title": "",
-            "dates": "",
-            "description": "",
+            "title": "AXA-ICBC APP",
+            "dates": "2016.07 - The Future",
+            "description": "I maintained it and make some advances.",
             "images": [],
             "content": ""
         },
         {
-            "title": "",
-            "dates": "",
-            "description": "",
+            "title": "MOVE App",
+            "dates": "2017.02 - 3",
+            "description": "MOVE App is a sport and health app, and It using some rules make users can earn bracelets by doing sports every day.",
             "images": [],
             "content": ""
         }
@@ -130,6 +130,7 @@ $("#topContacts").append(formattedLocation);
 
 if (bio.skills.length > 0) {
     $("#header").append(HTMLskillsStart);
+
     var formattedSkill = HTMLskills.replace("%data%", bio.skills[0]);
     $("#skills").append(formattedSkill);
     formattedSkill = HTMLskills.replace("%data%", bio.skills[1]);
@@ -140,12 +141,44 @@ if (bio.skills.length > 0) {
     $("#skills").append(formattedSkill);
 }
 
-for(job in work.jobs) {
-    $("#workExperience").append(HTMLworkStart);
-    var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
-    var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
-    var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
-    var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
-    var formattedEmployerTitle = formattedEmployer + " - " + formattedTitle;
-    $(".work-entry:last").append(formattedEmployerTitle);
+function displayWork() {
+    for(var job in work.jobs) {
+        $("#workExperience").append(HTMLworkStart);
+        var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+        var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+        var formattedEmployerTitle = formattedEmployer + " - " + formattedTitle;
+        $(".work-entry:last").append(formattedEmployerTitle);
+
+        var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
+        $(".work-entry:last").append(formattedDates);
+        var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+        $(".work-entry:last").append(formattedDescription);
+    }
 }
+displayWork();
+
+$(document).click(function (loc) {
+   var x = loc.pageX;
+   var y = loc.pageY;
+   logClicks(x, y);
+});
+
+projects.display = function () {
+    for (var project in projects.projects) {
+        $("#projects").append(HTMLprojectStart);
+
+        var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
+        $(".project-entry:last").append(formattedTitle);
+        var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
+        $(".project-entry:last").append(formattedDates);
+        var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
+        $(".project-entry:last").append(formattedDescription);
+        if (projects.projects[project].images.length > 0) {
+            for (var image in projects.projects[project].images) {
+                var formattedImage = HTMLprojectImage.replace("%data%",projects.projects[project].images[image]);
+                $(".project-entry:last").append(formattedImage);
+            }
+        }
+    }
+};
+projects.display();
