@@ -87,7 +87,7 @@ var education = {
             "majors": ["Insurance"],
             "degree": "Bachelor Degree",
             "dates": "2006-2010",
-            "url": ""
+            "url": "http://binhai.nankai.edu.cn/"
         },
         {
             "name": "APTECH Zhengzhou Campus",
@@ -95,7 +95,7 @@ var education = {
             "majors": ["Android Development"],
             "degree": "Android Developer",
             "dates": "2013-2014",
-            "url": ""
+            "url": "http://www.bdqn.cn/search/schoolView/sid/97.shtml"
         }
     ],
     "onlineCourses": [
@@ -162,10 +162,10 @@ projects.display = function () {
         var formattedDescription = HTMLprojectDescription.replace("%data%", project.description);
         $(".project-entry:last").append(formattedTitle, formattedDates, formattedDescription);
         if (project.images.length > 0) {
-            for (var image in project.images) {
-                var formattedImage = HTMLprojectImage.replace("%data%", project.images[image]);
+            project.images.forEach (function (image) {
+                var formattedImage = HTMLprojectImage.replace("%data%", image);
                 $(".project-entry:last").append(formattedImage);
-            }
+            });
         }
     });
 };
@@ -173,7 +173,7 @@ projects.display = function () {
 education.display = function () {
     education.schools.forEach(function (school) {
         $("#education").append(HTMLschoolStart);
-        var formattedName = HTMLschoolName.replace("%data%", school.name);
+        var formattedName = HTMLschoolName.replace("%data%", school.name).replace("#", school.url);
         var formattedDegree = HTMLschoolDegree.replace("%data%", school.degree);
         var formattedSchoolNameDegree = formattedName + formattedDegree;
         var formattedLocation = HTMLschoolLocation.replace("%data%", school.location);
