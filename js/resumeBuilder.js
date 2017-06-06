@@ -16,22 +16,24 @@ var bio = {
     skills: [
         "Android App Development", "Java", "JavaScript", "HTML", "CSS", "Communication with customers", "Business Analysis"
     ],
-    bioPic: "images/fry.jpg"
+    biopic: "images/fry.jpg"
 };
 
 var work = {
-    "jobs":[
+    "jobs": [
         {
             "title": "Android Developer",
             "employer": "Allianture",
             "dates": "October 2013 - Future",
-            "description":"Android project developer"
+            "description": "Android project developer",
+            "location": "Shanghai, China"
         },
         {
             "title": "Android App Tester",
             "employer": "Qi cheng",
             "dates": "April 2013 - July 2013",
-            "description":"Android app tester"
+            "description": "Android app tester",
+            "location": "Shanghai, China"
         }
     ]
 };
@@ -42,35 +44,35 @@ var projects = {
             "title": "TPEOA",
             "dates": "2013.10 - 2014.04",
             "description": "This is an mobile OA system(app) witch is required by a customer.",
-            "images": [],
+            "images": ["http://placehold.it/300x200"],
             "content": ""
         },
         {
             "title": "Mobile Survey System",
             "dates": "2014.05 - 2016.02",
             "description": "This is a custom mobile app for an Insurance company. There are over 2000 insurance surveyors of them. With this app they can survey car accidents easily.",
-            "images": [],
+            "images": ["http://placehold.it/300x200"],
             "content": ""
         },
         {
             "title": "Mobile Survey System 2.0",
             "dates": "2016.02 - 2017.02",
             "description": "This is an app which is upgrade version of Mobile Survey System. Because there core business has some big adjustment, so some other systems rely on it has to update.",
-            "images": [],
+            "images": ["http://placehold.it/300x200"],
             "content": ""
         },
         {
             "title": "AXA-ICBC APP",
             "dates": "2016.07 - The Future",
             "description": "I maintained it and make some advances.",
-            "images": [],
+            "images": ["http://placehold.it/300x200"],
             "content": ""
         },
         {
             "title": "MOVE App",
             "dates": "2017.02 - 3",
             "description": "MOVE App is a sport and health app, and It using some rules make users can earn bracelets by doing sports every day.",
-            "images": [],
+            "images": ["http://placehold.it/300x200"],
             "content": ""
         }
     ]
@@ -105,118 +107,95 @@ var education = {
         }
     ]
 };
+
 var formattedName = HTMLheaderName.replace("%data%", bio.name);
 var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
-$("#header").prepend(formattedRole);
-$("#header").prepend(formattedName);
+$("#header").prepend(formattedRole).prepend(formattedName);
 
-var bioPic2 = HTMLbioPic.replace("%data%", bio.bioPic);
-$("#header").append(bioPic2);
+var biopic2 = HTMLbioPic.replace("%data%", bio.biopic);
 var welcomeMessage = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
-$("#header").append(welcomeMessage);
-// $("#topContacts").append(HTMLcontactGeneric);
+$("#header").append(biopic2, welcomeMessage);
 var formattedMobile = HTMLmobile.replace("%data%", bio.contacts.mobile);
 var formattedEmail = HTMLemail.replace("%data%", bio.contacts.email);
 var formattedTwitter = HTMLtwitter.replace("%data%", bio.contacts.twitter);
 var formattedGithub = HTMLgithub.replace("%data%", bio.contacts.github);
 var formattedBlog = HTMLblog.replace("%data%", bio.contacts.blog);
-var formattedLocation= HTMLlocation.replace("%data%", bio.contacts.location);
-$("#topContacts").append(formattedMobile);
-$("#topContacts").append(formattedEmail);
-$("#topContacts").append(formattedTwitter);
-$("#topContacts").append(formattedGithub);
-$("#topContacts").append(formattedBlog);
-$("#topContacts").append(formattedLocation);
+var formattedLocation = HTMLlocation.replace("%data%", bio.contacts.location);
+$("#topContacts, #footerContacts").append(formattedMobile, formattedEmail, formattedTwitter, formattedGithub, formattedBlog, formattedLocation);
 
-if (bio.skills.length > 0) {
-    $("#header").append(HTMLskillsStart);
-
-    var formattedSkill = HTMLskills.replace("%data%", bio.skills[0]);
-    $("#skills").append(formattedSkill);
-    formattedSkill = HTMLskills.replace("%data%", bio.skills[1]);
-    $("#skills").append(formattedSkill);
-    formattedSkill = HTMLskills.replace("%data%", bio.skills[2]);
-    $("#skills").append(formattedSkill);
-    formattedSkill = HTMLskills.replace("%data%", bio.skills[3]);
-    $("#skills").append(formattedSkill);
-}
-
-function displayWork() {
-    for(var job in work.jobs) {
-        $("#workExperience").append(HTMLworkStart);
-        var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
-        var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
-        var formattedEmployerTitle = formattedEmployer + " - " + formattedTitle;
-        $(".work-entry:last").append(formattedEmployerTitle);
-
-        var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
-        $(".work-entry:last").append(formattedDates);
-        var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
-        $(".work-entry:last").append(formattedDescription);
+bio.display = function () {
+    if (bio.skills.length > 0) {
+        $("#header").append(HTMLskillsStart);
+        bio.skills.forEach(function (skill) {
+            var formattedSkill = HTMLskills.replace("%data%", skill);
+            $("#skills").append(formattedSkill);
+        });
     }
-}
-displayWork();
+};
+
+
+work.display = function () {
+    work.jobs.forEach(function (job) {
+        $("#workExperience").append(HTMLworkStart);
+        var formattedTitle = HTMLworkTitle.replace("%data%", job.title);
+        var formattedEmployer = HTMLworkEmployer.replace("%data%", job.employer);
+        var formattedEmployerTitle = formattedEmployer + " - " + formattedTitle;
+        var formattedDates = HTMLworkDates.replace("%data%", job.dates);
+        var formattedDescription = HTMLworkDescription.replace("%data%", job.description);
+        var formattedLocation = HTMLworkLocation.replace("%data%", job.location);
+        $(".work-entry:last").append(formattedEmployerTitle, formattedDates, formattedDescription, formattedLocation);
+    });
+};
+
 
 $(document).click(function (loc) {
-   var x = loc.pageX;
-   var y = loc.pageY;
-   logClicks(x, y);
+    var x = loc.pageX;
+    var y = loc.pageY;
+    logClicks(x, y);
 });
 
 projects.display = function () {
-    for (var project in projects.projects) {
+    projects.projects.forEach(function (project) {
         $("#projects").append(HTMLprojectStart);
-
-        var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
-        $(".project-entry:last").append(formattedTitle);
-        var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
-        $(".project-entry:last").append(formattedDates);
-        var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
-        $(".project-entry:last").append(formattedDescription);
-        if (projects.projects[project].images.length > 0) {
-            for (var image in projects.projects[project].images) {
-                var formattedImage = HTMLprojectImage.replace("%data%",projects.projects[project].images[image]);
+        var formattedTitle = HTMLprojectTitle.replace("%data%", project.title);
+        var formattedDates = HTMLprojectDates.replace("%data%", project.dates);
+        var formattedDescription = HTMLprojectDescription.replace("%data%", project.description);
+        $(".project-entry:last").append(formattedTitle, formattedDates, formattedDescription);
+        if (project.images.length > 0) {
+            for (var image in project.images) {
+                var formattedImage = HTMLprojectImage.replace("%data%", project.images[image]);
                 $(".project-entry:last").append(formattedImage);
             }
         }
-    }
+    });
 };
-projects.display();
 
 education.display = function () {
-    for (var school in education.schools) {
+    education.schools.forEach(function (school) {
         $("#education").append(HTMLschoolStart);
-
-        var formattedName = HTMLschoolName.replace("%data%", education.schools[school].name);
-        var formattedDegree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
+        var formattedName = HTMLschoolName.replace("%data%", school.name);
+        var formattedDegree = HTMLschoolDegree.replace("%data%", school.degree);
         var formattedSchoolNameDegree = formattedName + formattedDegree;
-        $(".education-entry:last").append(formattedSchoolNameDegree);
-        var formattedLocation = HTMLschoolLocation.replace("%data%", education.schools[school].location);
-        $(".education-entry:last").append(formattedLocation);
-        var formattedDates = HTMLschoolDates.replace("%data%", education.schools[school].dates);
-        $(".education-entry:last").append(formattedDates);
-        var formattedMajor = HTMLschoolMajor.replace("%data%",education.schools[school].majors[0]);
-        $(".education-entry:last").append(formattedMajor);
-    }
+        var formattedLocation = HTMLschoolLocation.replace("%data%", school.location);
+        var formattedDates = HTMLschoolDates.replace("%data%", school.dates);
+        var formattedMajor = HTMLschoolMajor.replace("%data%", school.majors[0]);
+        $(".education-entry:last").append(formattedSchoolNameDegree, formattedLocation, formattedDates, formattedMajor);
+    });
 
-    for (var onlineSchool in education.onlineCourses) {
+    education.onlineCourses.forEach(function (onlineSchool) {
         $(".education-entry:last").append(HTMLonlineClasses);
-
-        var formattedTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[onlineSchool].title);
-        var formattedSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[onlineSchool].school);
+        var formattedTitle = HTMLonlineTitle.replace("%data%", onlineSchool.title);
+        var formattedSchool = HTMLonlineSchool.replace("%data%", onlineSchool.school);
+        var formattedOnlineDates = HTMLonlineDates.replace("%data%", onlineSchool.dates);
+        var formattedUrl = HTMLonlineURL.replace("%data%", onlineSchool.url);
         var formattedTitleSchool = formattedTitle + formattedSchool;
-        $(".education-entry:last").append(formattedTitleSchool);
-        var formattedOnlineDates = HTMLonlineDates.replace("%data%", education.onlineCourses[onlineSchool].dates);
-        $(".education-entry:last").append(formattedOnlineDates);
-        var formattedUrl = HTMLonlineURL.replace("%data%", education.onlineCourses[onlineSchool].url);
-        $(".education-entry:last").append(formattedUrl);
-    }
+        $(".education-entry:last").append(formattedTitleSchool, formattedOnlineDates, formattedUrl);
+    });
 };
-education.display();
 
-$("#footerContacts").append(formattedMobile);
-$("#footerContacts").append(formattedEmail);
-$("#footerContacts").append(formattedTwitter);
-$("#footerContacts").append(formattedGithub);
-$("#footerContacts").append(formattedBlog);
-$("#footerContacts").append(formattedLocation);
+$("#mapDiv").append(googleMap);
+
+bio.display();
+work.display();
+projects.display();
+education.display();
